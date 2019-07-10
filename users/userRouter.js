@@ -67,32 +67,32 @@ router.get("/:id/posts", validateUserId, (req, res) => {
 });
 
 router.delete("/:id", validateUserId, (req, res) => {
-    const { id } = req.params;
-    Users.remove(id)
+  const { id } = req.params;
+  Users.remove(id)
     .then(deleted => {
-        res.status(204).end()
+      res.status(204).end();
     })
     .catch(error => {
-        res.status(500).json({ message: 'error removing user' })
-    })
+      res.status(500).json({ message: "error removing user" });
+    });
 });
 
 router.put("/:id", validateUserId, (req, res) => {
-    const { id } = req.params;
-    const { name } = req.body;
-    Users.update(id, { name })
+  const { id } = req.params;
+  const { name } = req.body;
+  Users.update(id, { name })
     .then(response => {
-        res.status(200).json({ name })
+      res.status(200).json({ name });
     })
     .catch(error => {
-        res.status(500).json({ error: 'error updating user' })
-    })
+      res.status(500).json({ error: "error updating user" });
+    });
 });
 
 //custom middleware
 // Grabs user id from array, the length is not equal to 0, set user id to parameter, and move to next operation, otherwise throw error
 function validateUserId(req, res, next) {
-    console.log('req.user', req.user);
+  console.log("req.user", req.user);
   Users.getById(req.params.id)
     .then(user => {
       if (user.length !== 0) {
